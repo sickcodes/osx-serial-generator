@@ -8,6 +8,8 @@ This project provides two tools for generating serial numbers for Hackintosh, [O
 
 Author: Sick.Codes https://sick.codes/ & https://twitter.com/sickcodes
 
+### Follow @sickcodes on Twitter for updates! [https://twitter.com/sickcodes](https://twitter.com/sickcodes)
+
 Terms & Conditions: Serial numbers are an important part of conducting iMessage security research and finding vulnerabilities in software prior to Bad Actors, therefor, you must agree to [Apple's Security Bounty program](https://developer.apple.com/security-bounty/requirements/).
 
 ### PR & Contributor Credits
@@ -29,13 +31,16 @@ This is for generating sets of serial numbers that simply work.
 
 If this is your first time, just run the first command below, without any options, and you will be given 1 complete set.
 
+With your new serial numbers, you can:
+- put them in your existing `config.plist` and reboot
+- tell the script to make a new `OpenCore.qcow2`
+- output as TSV and CSV, and more!
+
 Used at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 
 - [https://github.com/kholia/OSX-KVM](https://github.com/kholia/OSX-KVM): "Run macOS on QEMU/KVM. With OpenCore + Big Sur support now! Only commercial (paid) support is available."
 
 - [https://github.com/sickcodes/Docker-OSX](https://github.com/sickcodes/Docker-OSX): "Run Mac in a Docker! Run near native OSX-KVM in Docker! X11 Forwarding! CI/CD for OS X!"
-
-- [https://github.com/kholia/OSX-KVM](https://github.com/kholia/OSX-KVM)
 
 # Requirements
 
@@ -58,63 +63,81 @@ Example
 
 ```bash
 # make 1 full serial set 
-./generate-unique-machine-values.sh -c 1 --model="iMacPro1,1"
+./generate-unique-machine-values.sh \
+    -c 1 \
+    --model="iMacPro1,1"
 ```
 
 Done!
 
 Slip those values into your config.plist and reboot!
 
-## Extended options
+## Extended options  - Automation?
 
 ### Need more serials?
 
 ```bash
 # make 100 serial sets
-./generate-unique-machine-values.sh -c 100 --model="iMacPro1,1"
+./generate-unique-machine-values.sh \
+    -c 100 \
+    --model="iMacPro1,1"
 ```
 
 ### Want me to make an OpenCore bootdisk AND output plists?
 
 ```bash
-# make 5 serial sets, but also make config.plist for each set, and OpenCore-nopicker.qcow2 for each serial set.
-./generate-unique-machine-values.sh -c 5 --plists --bootdisks
+# make 5 serial sets
+# but also make config.plist for each set
+# and OpenCore-nopicker.qcow2 for each serial set.
+./generate-unique-machine-values.sh \
+    -c 5 \
+    --create-plists \
+    --create-bootdisks
 ```
 
 ## Already have your own `config.plist`?
 
 If you want to automate creating the qcow bootdisk each time, you can use placeholders and let this script build the image each time you change anything.
 
-If you want to use placeholders, you can supply that to either of the scripts in this repo and use `--custom-plist=./my_config.plist`
+If you want to use placeholders, you can supply that to either of the scripts in this repo and use:
+
+`--custom-plist=./my_config.plist`
 
 ```bash
-# make 5 serial sets, but also use my config.plist for each set AND make qcow2 image for each!
-./generate-unique-machine-values.sh -c 5 --custom-plist=./my_config.plist --bootdisks
+# make 5 serial sets
+# but also use my config.plist for each set
+# AND make qcow2 image for each set!
+./generate-unique-machine-values.sh \
+    -c 5 \
+    --custom-plist=./my_config.plist \
+    --create-bootdisks
 ```
 
-You can also use an URL for the input plist using `--master-plist-url`.
+You can also use an URL for the input plist using:
+
+`--master-plist-url`.
 
 Or you can manually enter the values generated above:
 
 ```xml
-            <key>MLB</key>
-            <string>{{BOARD_SERIAL}}</string>
-            <key>ROM</key>
-            <data>{{ROM}}</data>
-            <key>SpoofVendor</key>
-            <true/>
-            <key>SystemProductName</key>
-            <string>{{DEVICE_MODEL}}</string>
-            <key>SystemSerialNumber</key>
-            <string>{{SERIAL}}</string>
-            <key>SystemUUID</key>
-            <string>{{UUID}}</string>
-            ...
-            ...
-            ...
-            <key>Resolution</key>
-            <string>{{WIDTH}}x{{HEIGHT}}@32</string>
-            <key>SanitiseClearScreen</key>
+    <key>MLB</key>
+    <string>{{BOARD_SERIAL}}</string>
+    <key>ROM</key>
+    <data>{{ROM}}</data>
+    <key>SpoofVendor</key>
+    <true/>
+    <key>SystemProductName</key>
+    <string>{{DEVICE_MODEL}}</string>
+    <key>SystemSerialNumber</key>
+    <string>{{SERIAL}}</string>
+    <key>SystemUUID</key>
+    <string>{{UUID}}</string>
+    ...
+    ...
+    ...
+    <key>Resolution</key>
+    <string>{{WIDTH}}x{{HEIGHT}}@32</string>
+    <key>SanitiseClearScreen</key>
 ```
 ```
     {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}},
@@ -185,18 +208,23 @@ Optional options:
 
 Placeholders:   {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}}, {{UUID}},
                 {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+```
 
-Example:
-    ./generate-specific-bootdisk.sh \
-        --model iMacPro1,1 \
-        --serial C02TW0WAHX87 \
-        --board-serial C027251024NJG36UE \
-        --uuid 5CCB366D-9118-4C61-A00A-E5BAF3BED451 \
-        --mac-address A8:5C:2C:9A:46:2F \
-        --output-bootdisk ./OpenCore-nopicker.qcow2 \
-        --width 1920 \
-        --height 1080
+Example using your serials generated earlier:
 
+```bash
+CUSTOM_PLIST=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-nopicker-custom.plist
+
+./generate-specific-bootdisk.sh \
+    --input-plist-url="${CUSTOM_PLIST}" \
+    --model iMacPro1,1 \
+    --serial C02TW0WAHX87 \
+    --board-serial C027251024NJG36UE \
+    --uuid 5CCB366D-9118-4C61-A00A-E5BAF3BED451 \
+    --mac-address A8:5C:2C:9A:46:2F \
+    --output-bootdisk ./OpenCore-nopicker.qcow2 \
+    --width 1920 \
+    --height 1080
 ```
 
 
