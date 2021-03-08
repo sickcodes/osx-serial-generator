@@ -21,7 +21,7 @@ https://github.com/sickcodes/osx-serial-generator/blob/master/CREDITS.md
 
 # Purpose
 
-These script were written by @sickcodes [https://twitter.com/sickcodes](https://twitter.com/sickcodes) for automating generating unique values at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
+These script were written by [@sickcodes](https://github.com/sickcodes) [https://twitter.com/sickcodes](https://twitter.com/sickcodes) for automating generating unique values at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 
 This is for generating sets of serial numbers that simply work.
 
@@ -39,7 +39,7 @@ Used at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 
 ```bash
 # Ubuntu/Debian/Pop
-sudo apt update -y && sudo apt install libguestfs-tools build-essential wget git -y
+sudo apt update -y && sudo apt install libguestfs-tools build-essential ld wget git -y
 
 # Fedora, RHEL, CentOS
 sudo yum install libguestfs wget git -y
@@ -53,13 +53,28 @@ sudo pacman -Sy libguestfs wget git base-devel
 # Generating New Unique Serial Numbers
 
 Example 
-```bash
-# make 1 serial set, using
-./generate-unique-machine-values.sh -c 1
 
+```bash
+# make 1 full serial set 
+./generate-unique-machine-values.sh -c 1 --model="iMacPro1,1"
+```
+
+Done!
+
+Slip those values into your config.plist and reboot!
+
+## Extended options
+
+### Need more serials?
+
+```bash
 # make 100 serial sets
 ./generate-unique-machine-values.sh -c 100 --model="iMacPro1,1"
+```
 
+### Want me to make an OpenCore bootdisk AND output plists?
+
+```bash
 # make 5 serial sets, but also make config.plist for each set, and OpenCore-nopicker.qcow2 for each serial set.
 ./generate-unique-machine-values.sh -c 5 --plists --bootdisks
 ```
@@ -74,6 +89,8 @@ If you want to use placeholders, you can supply that to either of the scripts in
 # make 5 serial sets, but also use my config.plist for each set AND make qcow2 image for each!
 ./generate-unique-machine-values.sh -c 5 --custom-plist=./my_config.plist --bootdisks
 ```
+
+You can also use an URL for the input plist using `--master-plist-url`.
 
 Or you can manually enter the values generated above:
 

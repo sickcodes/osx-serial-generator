@@ -22,13 +22,14 @@ General options:
     --output-dir <directory>        Optionally change the script output location
     --width <string>                Resolution x axis length in px, default 1920
     --height <string>               Resolution y axis length in px, default 1080
-    --master-plist-url <url>        Specify an alternative master plist, via URL
-    --master-plist <filename>       Optionally change the input plist
-    --custom-plist <filename>       Same as --master-plist
+    --input-plist-url <url>         Specify an alternative master plist, via URL
+    --master-plist-url <url>        Same as above.
+    --custom-plist <filename>       Optionally change the input plist.
+    --master-plist <filename>       Same as above.
     --output-bootdisk <filename>    Optionally change the bootdisk filename
-    --envs                          Create all corresponding sourcable envs
-    --plists                        Create all corresponding config.plists
-    --bootdisks                     Create all corresponding bootdisks [SLOW]
+    --create-envs, --envs           Create all corresponding sourcable envs
+    --create-plists, --plists       Create all corresponding config.plists
+    --create-bootdisks, --bootdisks Create all corresponding bootdisks [SLOW]
     --help, -h, help                Display this help and exit
 
 Additional options only if you are creating ONE serial set:
@@ -70,6 +71,7 @@ while (( "$#" )); do
                 export SERIAL_SET_COUNT="${1#*=}"
                 shift
             ;;
+
     --count* | -c* | -n* )
                 export SERIAL_SET_COUNT="${2}"
                 shift
@@ -80,6 +82,7 @@ while (( "$#" )); do
                 export CSV_OUTPUT_FILENAME="${1#*=}"
                 shift
             ;;
+
     --csv* )
                 export CSV_OUTPUT_FILENAME="${2}"
                 shift
@@ -90,6 +93,7 @@ while (( "$#" )); do
                 export TSV_OUTPUT_FILENAME="${1#*=}"
                 shift
             ;;
+
     --tsv* )
                 export TSV_OUTPUT_FILENAME="${2}"
                 shift
@@ -100,6 +104,7 @@ while (( "$#" )); do
                 export OUTPUT_DIRECTORY="${1#*=}"
                 shift
             ;;
+
     --output-dir* )
                 export OUTPUT_DIRECTORY="${2}"
                 shift
@@ -110,6 +115,7 @@ while (( "$#" )); do
                 export OUTPUT_BOOTDISK="${1#*=}"
                 shift
             ;;
+
     --output-bootdisk* )
                 export OUTPUT_BOOTDISK="${2}"
                 shift
@@ -120,6 +126,7 @@ while (( "$#" )); do
                 export OUTPUT_ENV="${1#*=}"
                 shift
             ;;
+
     --output-env* )
                 export OUTPUT_ENV="${2}"
                 shift
@@ -130,6 +137,7 @@ while (( "$#" )); do
                 export DEVICE_MODEL="${1#*=}"
                 shift
             ;;
+
     --model* | -m* ) 
                 export DEVICE_MODEL="${2}"
                 shift
@@ -151,54 +159,46 @@ while (( "$#" )); do
                 export HEIGHT="${1#*=}"
                 shift
             ;;
+
     --height* )
                 export HEIGHT="${2}"
                 shift
                 shift
             ;;
 
-    --master-plist-url=* )
+    --master-plist-url=* | --input-plist-url=* | --custom-plist-url=* )
                 export MASTER_PLIST_URL="${1#*=}"
                 shift
             ;;
-            
-    --master-plist-url* )
+
+    --master-plist-url* | --input-plist-url* | --custom-plist-url* )
                 export MASTER_PLIST_URL="${2}"
                 shift
                 shift
             ;;
 
-    --master-plist=* )
+    --master-plist=* | --input-plist=* | --custom-plist=* )
                 export MASTER_PLIST="${1#*=}"
                 shift
             ;;
 
-    --master-plist* )
+    --master-plist* | --input-plist* | --custom-plist* )
                 export MASTER_PLIST="${2}"
                 shift
                 shift
             ;;
 
-    --custom-plist=* )
-                export MASTER_PLIST="${1#*=}"
-                shift
-            ;;
-
-    --custom-plist* )
-                export MASTER_PLIST="${2}"
-                shift
-                shift
-            ;;
-
-    --plists )
+    --create-plists | --plists )
                 export CREATE_PLISTS=1
                 shift
             ;;
-    --bootdisks ) 
+
+    --create-bootdisks | --bootdisks )
                 export CREATE_BOOTDISKS=1
                 shift
             ;;
-    --envs ) 
+
+    --create-envs | --envs )
                 export CREATE_ENVS=1
                 shift
             ;;

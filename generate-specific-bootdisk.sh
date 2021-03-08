@@ -24,9 +24,10 @@ Required options:
 Optional options:
     --width <integer>               Resolution x axis length in px, default 1920
     --height <integer>              Resolution y axis length in px, default 1080
-    --master-plist-url <url>        Specify an alternative master plist, via URL
-    --custom-plist <filename>       
-       || --master-plist <filename> Optionally change the input plist.
+    --input-plist-url <url>         Specify an alternative master plist, via URL
+    --master-plist-url <url>        Same as above.
+    --custom-plist <filename>       Optionally change the input plist.
+    --master-plist <filename>       Same as above.
     --output-bootdisk <filename>    Optionally change the bootdisk filename
     --output-plist <filename>       Optionally change the output plist filename
     --help, -h, help                Display this help and exit
@@ -65,6 +66,7 @@ while (( "$#" )); do
                 export DEVICE_MODEL="${1#*=}"
                 shift
             ;;
+
     --model* | -m* ) 
                 export DEVICE_MODEL="${2}"
                 shift
@@ -75,6 +77,7 @@ while (( "$#" )); do
                 export SERIAL="${1#*=}"
                 shift
             ;;
+
     --serial* )
                 export SERIAL="${2}"
                 shift
@@ -85,6 +88,7 @@ while (( "$#" )); do
                 export BOARD_SERIAL="${1#*=}"
                 shift
             ;;
+
     --board-serial* )
                 export BOARD_SERIAL="${2}"
                 shift
@@ -95,6 +99,7 @@ while (( "$#" )); do
                 export UUID="${1#*=}"
                 shift
             ;;
+
     --uuid* )
                 export UUID="${2}"
                 shift
@@ -105,6 +110,7 @@ while (( "$#" )); do
                 export MAC_ADDRESS="${1#*=}"
                 shift
             ;;
+
     --mac-address* )
                 export MAC_ADDRESS="${2}"
                 shift
@@ -115,6 +121,7 @@ while (( "$#" )); do
                 export WIDTH="${1#*=}"
                 shift
             ;;
+
     --width* )
                 export WIDTH="${2}"
                 shift
@@ -125,6 +132,7 @@ while (( "$#" )); do
                 export HEIGHT="${1#*=}"
                 shift
             ;;
+
     --height* )
                 export HEIGHT="${2}"
                 shift
@@ -135,6 +143,7 @@ while (( "$#" )); do
                 export OUTPUT_QCOW="${1#*=}"
                 shift
             ;;
+
     --output-bootdisk* )
                 export OUTPUT_QCOW="${2}"
                 shift
@@ -145,38 +154,30 @@ while (( "$#" )); do
                 export OUTPUT_PLIST="${1#*=}"
                 shift
             ;;
+
     --output-plist* )
                 export OUTPUT_PLIST="${2}"
                 shift
                 shift
             ;;
 
-    --master-plist-url=* )
+    --master-plist-url=* | --input-plist-url=* | --custom-plist-url=* )
                 export MASTER_PLIST_URL="${1#*=}"
                 shift
             ;;
-            
-    --master-plist-url* )
+
+    --master-plist-url* | --input-plist-url* | --custom-plist-url* )
                 export MASTER_PLIST_URL="${2}"
                 shift
                 shift
             ;;
 
-    --master-plist=* )
+    --master-plist=* | --input-plist=* | --custom-plist=* )
                 export MASTER_PLIST="${1#*=}"
-                shift
-            ;;
-    --master-plist* )
-                export MASTER_PLIST="${2}"
-                shift
                 shift
             ;;
 
-    --custom-plist=* )
-                export MASTER_PLIST="${1#*=}"
-                shift
-            ;;
-    --custom-plist* )
+    --master-plist* | --input-plist* | --custom-plist* )
                 export MASTER_PLIST="${2}"
                 shift
                 shift
