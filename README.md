@@ -2,11 +2,13 @@
 
 ![Running mac osx in a docker container](/running-mac-inside-docker-qemu.png?raw=true "OSX KVM DOCKER")
 
-Generate macOS valid serials, uuids, and board serials. Pertinent for working in iMessage security research.
+Generate macOS valid serials, uuids, and board serials for good-faith security research.
 
-This project provides two tools for generating serial numbers for Hackintosh, OpenCore, Docker-OSx and OSX-KVM.
+This project provides two tools for generating serial numbers for Hackintosh, [OpenCore](https://github.com/acidanthera/OpenCorePkg), [Docker-OSX](https://github.com/sickcodes/Docker-OSX) and [OSX-KVM](https://github.com/kholia/OSX-KVM).
 
 Author: Sick.Codes https://sick.codes/ & https://twitter.com/sickcodes
+
+Terms & Conditions: Serial numbers are an important part of conducting iMessage security research and finding vulnerabilities in software prior to Bad Actors, therefor, you must agree to [Apple's Security Bounty program](https://developer.apple.com/security-bounty/requirements/).
 
 ### PR & Contributor Credits
 
