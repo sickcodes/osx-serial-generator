@@ -71,6 +71,8 @@ Example
 
 Done!
 
+CSV file and TSV file should be saved in your current working directory.
+
 Slip those values into your config.plist and reboot!
 
 ## Extended options  - Automation?
@@ -84,14 +86,14 @@ Slip those values into your config.plist and reboot!
     --model="iMacPro1,1"
 ```
 
-### Want me to make an OpenCore bootdisk AND output plists?
+### Want to make 50 OpenCore bootdisks AND 50 output plists?
 
 ```bash
 # make 5 serial sets
 # but also make config.plist for each set
 # and OpenCore-nopicker.qcow2 for each serial set.
 ./generate-unique-machine-values.sh \
-    -c 5 \
+    -c 50 \
     --create-plists \
     --create-bootdisks
 ```
