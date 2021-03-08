@@ -46,16 +46,19 @@ Used at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 
 ```bash
 # Ubuntu/Debian/Pop
-sudo apt update -y && sudo apt install libguestfs-tools build-essential ld wget git -y
+sudo apt update -y
+sudo apt install libguestfs-tools build-essential wget git linux-headers-generic -y
 
 # Fedora, RHEL, CentOS
-sudo yum install libguestfs wget git -y
+sudo yum install libguestfs wget git kernel-devel -y
 sudo yum groupinstall 'Development Tools' -y
 
 # Arch, Manjaro
-sudo pacman -Sy libguestfs wget git base-devel
+sudo pacman -Sy libguestfs wget git base-devel linux
 
 ```
+* to run inside a docker container, you need to install `linux` inside the container too:
+
 
 # Generating New Unique Serial Numbers
 
