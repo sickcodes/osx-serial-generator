@@ -10,7 +10,7 @@ Author: Sick.Codes https://sick.codes/ & https://twitter.com/sickcodes
 
 ### Follow @sickcodes on Twitter for updates! [https://twitter.com/sickcodes](https://twitter.com/sickcodes)
 
-Terms & Conditions: Serial numbers are an important part of conducting iMessage security research and finding vulnerabilities in software prior to Bad Actors, therefor, you must agree to [Apple's Security Bounty program](https://developer.apple.com/security-bounty/requirements/).
+Terms & Conditions: Serial numbers are an important part of conducting iMessage security research and finding vulnerabilities in software prior to Bad Actors, therefore, you must agree to [Apple's Security Bounty program](https://developer.apple.com/security-bounty/requirements/).
 
 ### PR & Contributor Credits
 
@@ -45,7 +45,7 @@ Used at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 # Requirements
 
 ```bash
-# Ubuntu/Debian/Pop
+# Ubuntu, Debian, Pop
 sudo apt update -y
 sudo apt install libguestfs-tools build-essential wget git linux-generic sudo -y
 
