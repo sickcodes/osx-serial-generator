@@ -265,7 +265,7 @@ generate_serial_sets () {
     if [ "${TSV_OUTPUT_FILENAME}" ]; then
         [ "${TSV_OUTPUT_FILENAME}" ] && export TSV_SERIAL_SETS_FILE="${TSV_OUTPUT_FILENAME}"
     else
-        export TSV_SERIAL_SETS_FILE="${OUTPUT_DIRECTORY}/serial_sets-${DATE_NOW}.csv"
+        export TSV_SERIAL_SETS_FILE="${OUTPUT_DIRECTORY}/serial_sets-${DATE_NOW}.tsv"
     fi
 
     
