@@ -294,8 +294,8 @@ ${DEVICE_MODEL}${T}${SERIAL}${T}${BOARD_SERIAL}${T}${UUID}${T}${MAC_ADDRESS}${T}
 EOF
             echo "Wrote CSV to: ${TSV_SERIAL_SETS_FILE}"
 
-            # make envs if --envs, but also if you set the env filename it will switch on by itself
-            if [ "${CREATE_ENVS}" ] || [ "${OUTPUT_ENV}" ] || [ "${CREATE_PLISTS}" ] || [ "${CREATE_BOOTDISKS}" ]; then
+            # if any of these are on, we need the env file.
+            if [ "${CREATE_ENVS}" ] || [ "${CREATE_PLISTS}" ] || [ "${CREATE_BOOTDISKS}" ] || [ "${OUTPUT_BOOTDISK}" ] || [ "${OUTPUT_ENV}" ]; then
                 mkdir -p "${OUTPUT_DIRECTORY}/envs"
                 OUTPUT_ENV_FILE="${OUTPUT_ENV:-"${OUTPUT_DIRECTORY}/envs/${SERIAL}.env.sh"}"
                 touch "${OUTPUT_ENV_FILE}"
