@@ -192,16 +192,30 @@ done
 
 
 download_qcow_efi_folder () {
-    [ -d ./OSX-KVM ] || git clone --depth 1 https://github.com/kholia/OSX-KVM.git
-    cp -ra ./OSX-KVM/OpenCore-Catalina/EFI .
-    mkdir -p ./EFI/OC/Resources
-    # clone some Apple drivers
-    [ -d ./OcBinaryData ] || git clone --depth 1 https://github.com/acidanthera/OcBinaryData.git
-    # copy said drivers into EFI/OC/Resources
-    cp -a ./OcBinaryData/Resources/* ./EFI/OC/Resources
+
+    export EFI_FOLDER=./OpenCore-Catalina/EFI
+    export RESOURCES_FOLDER=./resources/OcBinaryData/Resources
+
+    # check if we are inside OSX-KVM already
+    # if not, download OSX-KVM locally
+    [ -d ./OpenCore-Catalina/EFI/ ] || {
+        git clone --recurse-submodules --depth 1 https://github.com/kholia/OSX-KVM.git
+        export EFI_FOLDER="./OSX-KVM/${EFI_FOLDER}"
+    }
+    
+    [ -d ./resources/OcBinaryData/Resources/ ] || {
+        export RESOURCES_FOLDER="./OSX-KVM/${RESOURCES_FOLDER}"
+    }
+
     # EFI Shell commands
-    touch startup.nsh \
-        && echo 'fs0:\EFI\BOOT\BOOTx64.efi' > startup.nsh
+    touch startup.nsh && echo 'fs0:\EFI\BOOT\BOOTx64.efi' > startup.nsh
+
+    cp -ra "${EFI_FOLDER}" .
+
+    mkdir -p ./EFI/OC/Resources
+
+    # copy Apple drivers into EFI/OC/Resources
+    cp -a "${RESOURCES_FOLDER}"/* ./EFI/OC/Resources
 }
 
 generate_bootdisk () {
