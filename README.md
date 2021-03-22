@@ -12,6 +12,15 @@ Author: Sick.Codes https://sick.codes/ & https://twitter.com/sickcodes
 
 Terms & Conditions: Serial numbers are an important part of conducting iMessage security research and finding vulnerabilities in software prior to Bad Actors, therefore, you must agree to [Apple's Security Bounty program](https://developer.apple.com/security-bounty/requirements/).
 
+### Upstream Thanks
+
+This project is a wrapper for the OpenCore bootloader's fantastic tool [macserial](https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macserial).
+
+Many thanks to the OpenCore Project for providing `macserial`.
+
+See the project which drives Hackintosh: [https://github.com/acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)
+
+
 ### PR & Contributor Credits
 
 https://github.com/sickcodes/osx-serial-generator/blob/master/CREDITS.md
