@@ -384,7 +384,9 @@ EOF
     [ -d "${OUTPUT_DIRECTORY}" ] || mkdir -p "${OUTPUT_DIRECTORY}"
     [ -e ./macserial ] || build_mac_serial
     download_vendor_mac_addresses
-    download_qcow_efi_folder
+    if [ "${CREATE_BOOTDISKS}" ] || [ "${OUTPUT_BOOTDISK}" ]; then
+        download_qcow_efi_folder
+    fi
     generate_serial_sets
     echo "${SERIAL_SETS_FILE}"    
 }
