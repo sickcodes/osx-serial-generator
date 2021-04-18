@@ -94,11 +94,8 @@ fish() {
 }
 
 fish_init() {
-    local format
+    # local format
 
-    FILETYPE="$(file "${IMAGE}")"
-
-    # case "${IMAGE##*.}" in
     case "$(file --brief "${IMAGE}")" in
         QEMU\ QCOW2\ Image* )   export FORMAT=qcow2
             ;;
@@ -147,10 +144,10 @@ cp -a "${BASE}/EFI" "${WORK}"
 
 export LIBGUESTFS_BACKEND=direct
 unset GUESTFISH_PID
-source <(guestfish --listen)
+source <(guestfish --listen || exit 1)
 
-if [[ -z "$GUESTFISH_PID" ]];
-    echo "ERROR: starting guestfish failed"
+if [[ -z "${GUESTFISH_PID}" ]]; then
+    echo "ERROR: starting guestfish failed. Install libguestfs-tools"
     exit 1
 fi
 
