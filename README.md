@@ -287,6 +287,153 @@ In the case example of why these scripts were written is:
 # Special Update Notes
 
 
+2021-06-15 - On June 15th 2021 we updated the config.plist from v12 to v13 via [@thenickdude](https://github.com/thenickdude)'s upstream `config.plist` files from [KVM-Opencore](https://github.com/thenickdude/KVM-Opencore).
+
+
+```bash
+wget https://github.com/thenickdude/KVM-Opencore/compare/v12...v13.patch
+
+patch -F 10 -p1 --verbose config-nopicker-custom.plist v12...v13.patch
+
+patch -F 10 -p1 --verbose config-custom.plist v12...v13.patch
+
+```
+
+Rejected patch lines:
+```patch
+--- EFI/OC/config.plist
++++ EFI/OC/config.plist
+@@ -644,43 +644,6 @@
+        </array>
+        <key>Patch</key>
+        <array>
+-           <dict>
+-               <key>Arch</key>
+-               <string>Any</string>
+-               <key>Base</key>
+-               <string>_cpu_topology_sort</string>
+-               <key>Comment</key>
+-               <string>algrey - cpu_topology_sort -disable _x86_validate_topology</string>
+-               <key>Count</key>
+-               <integer>1</integer>
+-               <key>Enabled</key>
+-               <true/>
+-               <key>Find</key>
+-               <data>
+-               6AAA//8=
+-               </data>
+-               <key>Identifier</key>
+-               <string>kernel</string>
+-               <key>Limit</key>
+-               <integer>0</integer>
+-               <key>Mask</key>
+-               <data>
+-               /wAA//8=
+-               </data>
+-               <key>MaxKernel</key>
+-               <string>20.99.99</string>
+-               <key>MinKernel</key>
+-               <string>17.0.0</string>
+-               <key>Replace</key>
+-               <data>
+-               Dx9EAAA=
+-               </data>
+-               <key>ReplaceMask</key>
+-               <data>
+-               </data>
+-               <key>Skip</key>
+-               <integer>0</integer>
+-           </dict>
+            <dict>
+                <key>Arch</key>
+                <string>Any</string>
+@@ -922,17 +891,19 @@
+                <key>Arguments</key>
+                <string></string>
+                <key>Auxiliary</key>
+-               <false/>
++               <true/>
+                <key>Comment</key>
+                <string>Memory testing utility</string>
+                <key>Enabled</key>
+                <false/>
++               <key>Flavour</key>
++               <string>MemTest</string>
+                <key>Name</key>
+-               <string>memcheck</string>
++               <string>memtest86</string>
+                <key>Path</key>
+-               <string>memcheck/memcheck.efi</string>
++               <string>memtest86/BOOTX64.efi</string>
+                <key>RealPath</key>
+-               <false/>
++               <true/>
+                <key>TextMode</key>
+                <false/>
+            </dict>
+@@ -981,11 +954,13 @@
+                <key>boot-args</key>
+                <string>keepsyms=1</string>
+                <key>csr-active-config</key>
+-               <data>AAAAAA==</data>
++               <data>Jg8=</data>
+                <key>prev-lang:kbd</key>
+                <data>ZW4tVVM6MA==</data>
+                <key>run-efi-updater</key>
+                <string>No</string>
++               <key>ForceDisplayRotationInEFI</key>
++               <integer>0</integer>
+            </dict>
+        </dict>
+        <key>Delete</key>
+--- Makefile
++++ Makefile
+@@ -63,7 +63,7 @@ OpenCore-$(RELEASE_VERSION).iso : OpenCore-$(RELEASE_VERSION).dmg
+ 
+ OpenCoreEFIFolder-$(RELEASE_VERSION).zip : Makefile $(EFI_FILES)
+    rm -f $@
+-   zip -r $@ EFI
++   zip -X -r $@ EFI
+ 
+ %.gz : %
+    gzip -f --keep $<
+--- src/AppleALC
++++ src/AppleALC
+@@ -1 +1 @@
+-Subproject commit 3c2f6315e6aed0cc3c45a9f01f84ef42fb497044
++Subproject commit 93be275a4495a1bdb7ff2c3238053f66b9c5195d
+--- src/Lilu
++++ src/Lilu
+@@ -1 +1 @@
+-Subproject commit 5aeba9f98106a5a8a3057712b74e1608faf5e276
++Subproject commit 614712caa9d84b6e90305839bd74f3872a44a522
+--- src/MacKernelSDK
++++ src/MacKernelSDK
+@@ -1 +1 @@
+-Subproject commit 2b584e8e2081ed22fc619151518921c8636d4639
++Subproject commit e73a6fcd42c94b6a908ad9fe197034c8f4bf442a
+--- src/OcBinaryData
++++ src/OcBinaryData
+@@ -1 +1 @@
+-Subproject commit ccf3d0c36784100293ccfb2865e10cd37f7a78ee
++Subproject commit 6dd2d92383edee522052ebbe2c634c92894b37e6
+--- src/OpenCorePkg
++++ src/OpenCorePkg
+@@ -1 +1 @@
+-Subproject commit 5668fb62b50e8141d93ae6fce3e3fe238822f6ef
++Subproject commit ae515dd0b1efe79940ce94bfd235399ba873a3f0
+--- src/VirtualSMC
++++ src/VirtualSMC
+@@ -1 +1 @@
+-Subproject commit 2a7455daf65c356c867a1d65b8f2520ae575ee3e
++Subproject commit 30a3fa2bd920a15e41ef1439585bcc19885b89e3
+--- src/WhateverGreen
++++ src/WhateverGreen
+@@ -1 +1 @@
+-Subproject commit 1daa2563b5e6e40f195aba5dc006e14c1d55dfd6
++Subproject commit 79efd986ac5f4f17e09b880f25ea45be64863b2f
+```
+
 
 -----------------
 
