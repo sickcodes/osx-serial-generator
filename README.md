@@ -434,6 +434,15 @@ Rejected patch lines:
 +Subproject commit 79efd986ac5f4f17e09b880f25ea45be64863b2f
 ```
 
+Delete lines 641 - 675 in both `config-custom.plist` and `config-nopicker-custom.plist` which is `_cpu_topology_sort`.
+
+Add 
+
+```diff
++               <key>ForceDisplayRotationInEFI</key>
++               <integer>0</integer>
+```
+
 
 -----------------
 
