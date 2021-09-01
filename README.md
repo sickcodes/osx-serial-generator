@@ -89,6 +89,9 @@ Slip those values into your config.plist and reboot!
 ### Need more serials?
 
 ```bash
+git clone https://github.com/sickcodes/osx-serial-generator
+cd osx-serial-generator
+
 # make 100 serial sets
 ./generate-unique-machine-values.sh \
     -c 100 \
