@@ -65,14 +65,14 @@ Used at runtime in [Docker-OSX](https://github.com/sickcodes/Docker-OSX).
 ```bash
 # Ubuntu, Debian, Pop
 sudo apt update -y
-sudo apt install libguestfs-tools build-essential wget git linux-generic sudo -y
+sudo apt install libguestfs-tools build-essential wget git linux-generic gcc uuid-runtime sudo -y
 
 # Fedora, RHEL, CentOS
-sudo yum install libguestfs libguestfs-tools wget git kernel-devel sudo -y
+sudo yum install libguestfs libguestfs-tools wget git kernel-devel gcc uuidd sudo -y
 sudo yum groupinstall 'Development Tools' -y
 
 # Arch, Manjaro
-sudo pacman -Sy libguestfs wget git base-devel linux sudo
+sudo pacman -Sy libguestfs wget git base-devel linux gcc uuidd sudo
 
 ```
 
