@@ -1,0 +1,1 @@
+[https://github.com/ivankoma](https://github.com/ivankoma) -  Empty ROM data in config.plist #14 
