@@ -835,7 +835,7 @@
 			<key>SecureBootModel</key>
 			<string>Disabled</string>
 			<key>AllowToggleSip</key>
-			<false/>
+			<true/>
 			<key>Vault</key>
 			<string>Optional</string>
 		</dict>
