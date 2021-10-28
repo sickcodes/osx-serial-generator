@@ -269,7 +269,7 @@ In the case example of why these scripts were written is:
         --bootdisks \
         --width "${WIDTH:-1920}" \
         --height "${HEIGHT:-1080}" \
-        --output-bootdisk "${BOOTDISK:=/home/arch/OSX-KVM/OpenCore-Catalina/OpenCore.qcow2}" \
+        --output-bootdisk "${BOOTDISK:=/home/arch/OSX-KVM/OpenCore/OpenCore.qcow2}" \
         --output-env "${ENV:=/env}" \
 ; } \
 ; [[ "${GENERATE_SPECIFIC}" == true ]] && { \
@@ -283,11 +283,13 @@ In the case example of why these scripts were written is:
         --mac-address "${MAC_ADDRESS}" \
         --width "${WIDTH:-1920}" \
         --height "${HEIGHT:-1080}" \
-        --output-bootdisk "${BOOTDISK:=/home/arch/OSX-KVM/OpenCore-Catalina/OpenCore.qcow2}"
+        --output-bootdisk "${BOOTDISK:=/home/arch/OSX-KVM/OpenCore/OpenCore.qcow2}"
 ```
 
 
 # Special Update Notes
+
+2021-10-28 - `OpenCore-Catalina/OpenCore.qcow2` was moved to `OpenCore/OpenCore.qcow2` in [https://github.com/kholia/OSX-KVM/commit/1cc6430f96b452cb78b9a079c34bb9933144ce18](https://github.com/kholia/OSX-KVM/commit/1cc6430f96b452cb78b9a079c34bb9933144ce18)
 
 
 2021-06-15 - On June 15th 2021 we updated the config.plist from v12 to v13 via [@thenickdude](https://github.com/thenickdude)'s upstream `config.plist` files from [KVM-Opencore](https://github.com/thenickdude/KVM-Opencore).

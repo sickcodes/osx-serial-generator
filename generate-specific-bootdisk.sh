@@ -193,12 +193,12 @@ done
 
 download_qcow_efi_folder () {
 
-    export EFI_FOLDER=./OpenCore-Catalina/EFI
+    export EFI_FOLDER=./OpenCore/EFI
     export RESOURCES_FOLDER=./resources/OcBinaryData/Resources
 
     # check if we are inside OSX-KVM already
     # if not, download OSX-KVM locally
-    [ -d ./OpenCore-Catalina/EFI/ ] || {
+    [ -d ./OpenCore/EFI/ ] || {
         [ -d ./OSX-KVM/ ] || git clone --recurse-submodules --depth 1 https://github.com/kholia/OSX-KVM.git
         export EFI_FOLDER="./OSX-KVM/${EFI_FOLDER}"
     }
