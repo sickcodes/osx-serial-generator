@@ -30,10 +30,11 @@ Optional options:
     --master-plist <filename>       Same as above.
     --output-bootdisk <filename>    Optionally change the bootdisk filename
     --output-plist <filename>       Optionally change the output plist filename
+    --thinkpad                      Sets ForceOcWriteFlash to true
     --help, -h, help                Display this help and exit
 
 Placeholders:   {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}}, {{UUID}},
-                {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+                {{ROM}}, {{WIDTH}}, {{HEIGHT}}, {{THINKPAD}}
 
 Example:
     ./generate-specific-bootdisk.sh \\
@@ -183,6 +184,12 @@ while (( "$#" )); do
                 shift
             ;;
 
+    
+    --thinkpad )
+                export THINKPAD=true
+                shift
+            ;;
+
     *)
                 echo "Invalid option ${1}. Running with default values..."
                 shift
@@ -233,6 +240,13 @@ generate_bootdisk () {
         wget -O "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
     fi
 
+    if [[ "${THINKPAD}" == true ]]; then
+        echo "Thinkpads: setting ForceOcWriteFlash to true"
+        export THINKPAD=true
+    else
+        export THINKPAD=false
+    fi
+
     [ -e ./opencore-image-ng.sh ] \
         || { wget "${OPENCORE_IMAGE_MAKER_URL}" \
             && chmod +x opencore-image-ng.sh ; }
@@ -252,6 +266,7 @@ generate_bootdisk () {
             -e s/\{\{ROM\}\}/"${ROM}"/g \
             -e s/\{\{WIDTH\}\}/"${WIDTH:-1920}"/g \
             -e s/\{\{HEIGHT\}\}/"${HEIGHT:-1080}"/g \
+            -e s/\{\{THINKPAD\}\}/"${THINKPAD:-false}"/g \
             "${MASTER_PLIST}" > ./tmp.config.plist || exit 1
     else
         cat <<EOF && exit 1
