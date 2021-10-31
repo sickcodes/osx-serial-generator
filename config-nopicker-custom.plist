@@ -1033,7 +1033,7 @@
 			<key>MaxBIOSVersion</key>
 			<false/>
 			<key>MLB</key>
-			<string>C02717306J9JG361M</string>
+			<string>{{BOARD_SERIAL}}</string>
 			<key>ProcessorType</key>
 			<integer>0</integer>
 			<key>ROM</key>
