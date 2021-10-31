@@ -251,6 +251,51 @@ CUSTOM_PLIST=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/ma
     --height 1080
 ```
 
+## Thinkpad Errors in OpenCore
+
+If you have errors related to a think pad, try toggling `--thinkpad`.
+
+This will set `ForceOcWriteFlash` to `true`, as per https://dortania.github.io/docs/latest/Configuration.html
+
+## Rough example used in Docker-OSX in a Dockerfile
+
+```dockerfile
+
+ARG STOCK_DEVICE_MODEL=iMacPro1,1
+ARG STOCK_SERIAL=C02TM2ZBHX87
+ARG STOCK_BOARD_SERIAL=C02717306J9JG361M
+ARG STOCK_UUID=007076A6-F2A2-4461-BBE5-BAD019F8025A
+ARG STOCK_MAC_ADDRESS=00:0A:27:00:00:00
+ARG STOCK_WIDTH=1920
+ARG STOCK_HEIGHT=1080
+ARG STOCK_MASTER_PLIST_URL=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist
+ARG STOCK_MASTER_PLIST_URL_NOPICKER=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-nopicker-custom.plist
+ARG STOCK_BOOTDISK=/home/arch/OSX-KVM/OpenCore/OpenCore.qcow2
+ARG STOCK_BOOTDISK_NOPICKER=/home/arch/OSX-KVM/OpenCore/OpenCore-nopicker.qcow2
+
+RUN ./generate-specific-bootdisk.sh \
+    --master-plist-url="${STOCK_MASTER_PLIST_URL}" \
+    --model "${STOCK_DEVICE_MODEL}" \
+    --serial "${STOCK_SERIAL}" \
+    --board-serial "${STOCK_BOARD_SERIAL}" \
+    --uuid "${STOCK_UUID}" \
+    --mac-address "${STOCK_MAC_ADDRESS}" \
+    --width "${STOCK_WIDTH}" \
+    --height "${STOCK_HEIGHT}" \
+    --output-bootdisk "${STOCK_BOOTDISK}" || exit 1
+
+RUN ./generate-specific-bootdisk.sh \
+    --master-plist-url="${STOCK_MASTER_PLIST_URL_NOPICKER}" \
+    --model "${STOCK_DEVICE_MODEL}" \
+    --serial "${STOCK_SERIAL}" \
+    --board-serial "${STOCK_BOARD_SERIAL}" \
+    --uuid "${STOCK_UUID}" \
+    --mac-address "${STOCK_MAC_ADDRESS}" \
+    --width "${STOCK_WIDTH}" \
+    --height "${STOCK_HEIGHT}" \
+    --output-bootdisk "${STOCK_BOOTDISK_NOPICKER}" || exit 1
+```
+
 
 # Examples from Docker-OSX
 

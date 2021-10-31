@@ -30,6 +30,7 @@ General options:
     --create-envs, --envs           Create all corresponding sourcable envs
     --create-plists, --plists       Create all corresponding config.plists
     --create-bootdisks, --bootdisks Create all corresponding bootdisks [SLOW]
+    --thinkpad                      Toggles ForceOcWriteFlash to true
     --help, -h, help                Display this help and exit
 
 Additional options only if you are creating ONE serial set:
@@ -38,7 +39,7 @@ Additional options only if you are creating ONE serial set:
 
 Custom plist placeholders:
     {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}},
-    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}, {{THINKPAD}}
 
 Example:
     ./generate-unique-machine-values.sh --count 1 --plists --bootdisks --envs
@@ -202,9 +203,14 @@ while (( "$#" )); do
                 export CREATE_ENVS=1
                 shift
             ;;
+    
+    --thinkpad )
+                export THINKPAD=true
+                shift
+            ;;
 
     *)
-                echo "Invalid option. Running with default values..."
+                echo "Invalid option ${1}. Running with default values..."
                 shift
             ;;
     esac
@@ -313,6 +319,7 @@ export UUID="${UUID}"
 export MAC_ADDRESS="${MAC_ADDRESS}"
 export WIDTH="${WIDTH}"
 export HEIGHT="${HEIGHT}"
+export THINKPAD="${THINKPAD}"
 EOF
 
             fi
@@ -333,6 +340,13 @@ EOF
                     wget -O "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
                 fi
 
+                if [[ "${THINKPAD}" == true ]]; then
+                    echo "Thinkpads: setting ForceOcWriteFlash to true"
+                    export THINKPAD=true
+                else
+                    export THINKPAD=false
+                fi
+
                 mkdir -p "${OUTPUT_DIRECTORY}/plists"
                 source "${OUTPUT_ENV_FILE}"
                 ROM="${MAC_ADDRESS//\:/}"
@@ -344,6 +358,7 @@ EOF
                     -e s/\{\{ROM\}\}/"${ROM}"/g \
                     -e s/\{\{WIDTH\}\}/"${WIDTH}"/g \
                     -e s/\{\{HEIGHT\}\}/"${HEIGHT}"/g \
+                    -e s/\{\{THINKPAD\}\}/"${THINKPAD}"/g \
                     "${MASTER_PLIST}" > "${OUTPUT_DIRECTORY}/plists/${SERIAL}.config.plist" || exit 1
             fi
 
