@@ -24,6 +24,7 @@ Required options:
 Optional options:
     --width <integer>               Resolution x axis length in px, default 1920
     --height <integer>              Resolution y axis length in px, default 1080
+    --kernel-args <string>          Additional boot-args
     --input-plist-url <url>         Specify an alternative master plist, via URL
     --master-plist-url <url>        Same as above.
     --custom-plist <filename>       Optionally change the input plist.
@@ -252,6 +253,7 @@ generate_bootdisk () {
             -e s/\{\{ROM\}\}/"${ROM}"/g \
             -e s/\{\{WIDTH\}\}/"${WIDTH:-1920}"/g \
             -e s/\{\{HEIGHT\}\}/"${HEIGHT:-1080}"/g \
+            -e s/\{\{KERNEL_ARGS\}\}/"${KERNEL_ARGS:-}"/g \
             "${MASTER_PLIST}" > ./tmp.config.plist || exit 1
     else
         cat <<EOF && exit 1
@@ -263,8 +265,11 @@ Error: one of the following values is missing:
 --uuid "${UUID:-MISSING}"
 --mac-address "${MAC_ADDRESS:-MISSING}"
 
+Optional:
+
 --width "${WIDTH:-1920}"
 --height "${HEIGHT:-1080}"
+--kernel-args "${KERNEL_ARGS:-}"
 
 EOF
     fi

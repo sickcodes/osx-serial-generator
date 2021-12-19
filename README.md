@@ -159,13 +159,17 @@ Or you can manually enter the values generated above:
     ...
     ...
     ...
-    <key>Resolution</key>
     <string>{{WIDTH}}x{{HEIGHT}}@32</string>
-    <key>SanitiseClearScreen</key>
+    ...
+    ...
+    ...
+    <key>boot-args</key>
+    <string>-v keepsyms=1 tlbto_us=0 vti=9 {{KERNEL_ARGS}}</string>
+
 ```
 ```
     {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}},
-    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}, {{KERNEL_ARGS}}
 ```
 
 ```bash
@@ -177,6 +181,7 @@ General options:
     --output-dir <directory>        Optionally change the script output location
     --width <string>                Resolution x axis length in px, default 1920
     --height <string>               Resolution y axis length in px, default 1080
+    --kernel-args <string>          Additional boot-args
     --master-plist-url <url>        Specify an alternative master plist, via URL
     --master-plist <filename>       Optionally change the input plist
     --custom-plist <filename>       Same as --master-plist
@@ -192,7 +197,7 @@ Additional options only if you are creating ONE serial set:
 
 Custom plist placeholders:
     {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}},
-    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+    {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}}, {{KERNEL_ARGS}}
 
 Example:
     ./generate-unique-machine-values.sh --count 1 --plists --bootdisks --envs
@@ -223,6 +228,7 @@ Required options:
 Optional options:
     --width <integer>               Resolution x axis length in px, default 1920
     --height <integer>              Resolution y axis length in px, default 1080
+    --kernel-args <string>          Additional boot-args
     --master-plist-url <url>        Specify an alternative master plist, via URL
     --custom-plist <filename>       
        || --master-plist <filename> Optionally change the input plist.
@@ -231,7 +237,7 @@ Optional options:
     --help, -h, help                Display this help and exit
 
 Placeholders:   {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}}, {{UUID}},
-                {{ROM}}, {{WIDTH}}, {{HEIGHT}}
+                {{ROM}}, {{WIDTH}}, {{HEIGHT}}, {{KERNEL_ARGS}}
 ```
 
 Example using your serials generated earlier:
@@ -248,7 +254,8 @@ CUSTOM_PLIST=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/ma
     --mac-address A8:5C:2C:9A:46:2F \
     --output-bootdisk ./OpenCore-nopicker.qcow2 \
     --width 1920 \
-    --height 1080
+    --height 1080 \
+    --kernel-args "-pmap_trace"
 ```
 
 
