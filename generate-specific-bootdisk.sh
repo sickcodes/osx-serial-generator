@@ -228,14 +228,14 @@ generate_bootdisk () {
         echo 'You specified both a custom plist FILE & custom plist URL.'
         echo 'Use only one of those options.'
     elif [ "${MASTER_PLIST_URL}" ]; then
-        wget -O "${MASTER_PLIST:=./config-custom.plist}" "${MASTER_PLIST_URL}"
+        curl -L -o "${MASTER_PLIST:=./config-custom.plist}" "${MASTER_PLIST_URL}"
     else
         # default is config-nopicker-custom.plist from OSX-KVM with placeholders used in Docker-OSX
-        wget -O "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
+        curl -L -o "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
     fi
 
     [ -e ./opencore-image-ng.sh ] \
-        || { wget "${OPENCORE_IMAGE_MAKER_URL}" \
+        || { curl -OL "${OPENCORE_IMAGE_MAKER_URL}" \
             && chmod +x opencore-image-ng.sh ; }
 
     # plist required for bootdisks, so create anyway.
