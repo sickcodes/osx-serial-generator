@@ -222,7 +222,7 @@ build_mac_serial () {
 
 download_vendor_mac_addresses () {
     # download the MAC Address vendor list
-    [ -e "${MAC_ADDRESSES_FILE:=vendor_macs.tsv}" ] || wget -O "${MAC_ADDRESSES_FILE}" https://gitlab.com/wireshark/wireshark/-/raw/master/manuf
+    [ -e "${MAC_ADDRESSES_FILE:=vendor_macs.tsv}" ] || curl -L -o "${MAC_ADDRESSES_FILE}" https://gitlab.com/wireshark/wireshark/-/raw/master/manuf
 }
 
 download_qcow_efi_folder () {
@@ -328,16 +328,16 @@ EOF
                     echo 'You specified both a custom plist FILE & custom plist URL.'
                     echo 'Use only one of those options.'
                 elif [ "${MASTER_PLIST_URL}" ]; then
-                    wget -O "${MASTER_PLIST:=./config-custom.plist}" "${MASTER_PLIST_URL}"
+                    curl -L -o "${MASTER_PLIST:=./config-custom.plist}" "${MASTER_PLIST_URL}"
                 else
                     # default is config-nopicker-custom.plist from OSX-KVM with placeholders used in Docker-OSX
-                    wget -O "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
+                    curl -L -o "${MASTER_PLIST:=./config-nopicker-custom.plist}" "${MASTER_PLIST_URL}"
                 fi
 
                 mkdir -p "${OUTPUT_DIRECTORY}/plists"
                 source "${OUTPUT_ENV_FILE}"
                 ROM="${MAC_ADDRESS//\:/}"
-                ROM="${ROM,,}"
+                ROM="$(awk '{print tolower($0)}' <<< "${ROM}")"
                 sed -e s/\{\{DEVICE_MODEL\}\}/"${DEVICE_MODEL}"/g \
                     -e s/\{\{SERIAL\}\}/"${SERIAL}"/g \
                     -e s/\{\{BOARD_SERIAL\}\}/"${BOARD_SERIAL}"/g \
@@ -352,7 +352,7 @@ EOF
             # make bootdisk qcow2 format if --bootdisks, but also if you set the bootdisk filename
             if [ "${CREATE_BOOTDISKS}" ] || [ "${OUTPUT_BOOTDISK}" ]; then
                 [ -e ./opencore-image-ng.sh ] \
-                    || { wget "${OPENCORE_IMAGE_MAKER_URL}" \
+                    || { curl -L -O "${OPENCORE_IMAGE_MAKER_URL}" \
                         && chmod +x opencore-image-ng.sh ; }
                 mkdir -p "${OUTPUT_DIRECTORY}/bootdisks"
                 ./opencore-image-ng.sh \
