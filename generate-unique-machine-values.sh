@@ -337,7 +337,7 @@ EOF
                 mkdir -p "${OUTPUT_DIRECTORY}/plists"
                 source "${OUTPUT_ENV_FILE}"
                 ROM="${MAC_ADDRESS//\:/}"
-                ROM=$(echo ${ROM} |  awk '{print tolower($0)}')
+                ROM="$(awk '{print tolower($0)}' <<< "${ROM}")"
                 sed -e s/\{\{DEVICE_MODEL\}\}/"${DEVICE_MODEL}"/g \
                     -e s/\{\{SERIAL\}\}/"${SERIAL}"/g \
                     -e s/\{\{BOARD_SERIAL\}\}/"${BOARD_SERIAL}"/g \
