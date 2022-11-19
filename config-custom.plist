@@ -1085,7 +1085,7 @@
 			<key>PasswordSalt</key>
 			<data></data>
 			<key>ScanPolicy</key>
-			<integer>13056</integer>
+			<integer>2687747</integer>
 			<key>SecureBootModel</key>
 			<string>Disabled</string>
 			<key>Vault</key>
@@ -1219,7 +1219,6 @@
 				<string>ForceDisplayRotationInEFI</string>
 			</array>
 		</dict>
-
 		<key>LegacyOverwrite</key>
 		<false/>
 		<key>LegacySchema</key>
@@ -1270,7 +1269,7 @@
 			<key>ProcessorType</key>
 			<integer>0</integer>
 			<key>ROM</key>
-			<data>{{ROM}}</data>
+			<data>0016cb001122</data>
 			<key>SpoofVendor</key>
 			<true/>
 			<key>SystemMemoryStatus</key>
