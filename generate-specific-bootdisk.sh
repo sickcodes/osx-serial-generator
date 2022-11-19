@@ -245,7 +245,8 @@ generate_bootdisk () {
             && [ "${UUID}" ] \
             && [ "${MAC_ADDRESS}" ]; then
         ROM="${MAC_ADDRESS//\:/}"
-        ROM="${ROM,,}"
+        ROM="$(awk '{print tolower($0)}' <<< "${ROM}")"
+        ROM="$(base64 <<< "${ROM}")"
         sed -e s/\{\{DEVICE_MODEL\}\}/"${DEVICE_MODEL}"/g \
             -e s/\{\{SERIAL\}\}/"${SERIAL}"/g \
             -e s/\{\{BOARD_SERIAL\}\}/"${BOARD_SERIAL}"/g \
