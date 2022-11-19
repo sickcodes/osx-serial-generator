@@ -1,6 +1,7 @@
 <!-- This file is modified by @sickcodes from https://github.com/kholia/OSX-KVM/tree/master/OpenCore-Catalina -->
 <!-- The modifications are placeholders for: {{DEVICE_MODEL}}, {{SERIAL}}, {{BOARD_SERIAL}}, {{UUID}}, {{ROM}}, {{WIDTH}}, {{HEIGHT}} -->
 <!-- All credit for this file https://github.com/kholia/OSX-KVM/blob/master/CREDITS.md -->
+<!-- Scan policy generator: https://oc-scanpolicy.vercel.app/ -->
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -1087,6 +1088,8 @@
 			<data></data>
 			<key>PasswordSalt</key>
 			<data></data>
+			<key>ScanPolicy</key>
+			<integer>13056</integer>
 			<key>SecureBootModel</key>
 			<string>Disabled</string>
 			<key>Vault</key>
