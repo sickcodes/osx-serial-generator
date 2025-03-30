@@ -741,7 +741,7 @@
                 <key>ExecutablePath</key>
                 <string>Contents/MacOS/CryptexFixup</string>
                 <key>MaxKernel</key>
-                <string>22.99.99</string>
+                <string>24.99.99</string>
                 <key>MinKernel</key>
                 <string>22.1.0</string>
                 <key>PlistPath</key>
@@ -963,7 +963,7 @@
                 <key>Mask</key>
                 <data></data>
                 <key>MaxKernel</key>
-                <string>22.99.99</string>
+                <string>24.99.99</string>
                 <key>MinKernel</key>
                 <string>22.1.0</string>
                 <key>Replace</key>
